@@ -33,7 +33,7 @@ services:
 
   ##### GRAFANA
   grafana:
-    image: grafana/grafana-oss:7.5.4
+    image: grafana/grafana-oss:9.4.7
     container_name: grafana
     ports:
       - 3000:3000
@@ -54,3 +54,16 @@ services:
       - './node_red_data:/data'
     ports:
       - 1880:1880
+
+##### MQTT
+  mqtt-open:
+    image: toke/mosquitto
+    container_name: mqtt-open
+    volumes:
+      - './mqtt/config:/mqtt/config'
+      - './mqtt/data:/mqtt/data'
+      - './mqtt/log:/mqtt/log'
+    ports:
+      - 1883:1883
+    depends_on:
+      - telegraf
